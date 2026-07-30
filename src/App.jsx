@@ -88,14 +88,6 @@ const App = () => {
     });
   }, [searchTerm, activeCategory, projects]);
 
-  const statsByType = useMemo(() => {
-    const stats = {};
-    projects.forEach(p => {
-      stats[p.category] = (stats[p.category] || 0) + 1;
-    });
-    return stats;
-  }, [projects]);
-
   if (error && projects.length === 0) {
     return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
