@@ -1,14 +1,3 @@
-@font-face {
-  font-family: 'RebelSans';
-  src: url('/fonts/RebelSansText-VF.ttf') format('truetype');
-}
-
-/* Custom Font */
-@font-face {
-  font-family: 'RebelSans';
-  src: url('/fonts/RebelSansText-VF.ttf') format('truetype');
-}
-
 /* Root & Colors */
 :root {
   --text-primary: #2c2c2a;
@@ -42,7 +31,8 @@
 }
 
 body {
-  font-family: 'RebelSans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--surface-0);
