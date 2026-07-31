@@ -41,16 +41,22 @@ const App = () => {
         // Transform Airtable records
         const transformedProjects = data.records
           .filter(record => record.fields.Status === 'Published')
-          .map((record, index) => ({
-            id: record.id,
-            title: record.fields.Title || 'Untitled',
-            description: record.fields.Description || '',
-            category: record.fields.Category?.[0] || 'Other',
-            type: record.fields.Type?.[0] || 'Other',
-            tags: record.fields.Tags || [],
-            link: record.fields.Link || null,
-            sortOrder: index,
-          }));
+          .map((record, index) => {
+            // Extract image URL from attachments
+            const imageUrl = record.fields.Image?.[0]?.url || null;
+            
+            return {
+              id: record.id,
+              title: record.fields.Title || 'Untitled',
+              description: record.fields.Description || '',
+              category: record.fields.Category?.[0] || 'Other',
+              type: record.fields.Type?.[0] || 'Other',
+              tags: record.fields.Tags || [],
+              link: record.fields.Link || null,
+              image: imageUrl,
+              sortOrder: index,
+            };
+          });
 
         setProjects(transformedProjects);
         setError(null);
@@ -181,6 +187,13 @@ const App = () => {
               style={{ animationDelay: `${idx * 0.05}s` }}
               onClick={() => setSelectedProject(project)}
             >
+              {/* Card Image Thumbnail */}
+              {project.image && (
+                <div className="card-image">
+                  <img src={project.image} alt={project.title} />
+                </div>
+              )}
+
               <div className="card-header">
                 <span
                   className="type-badge"
@@ -231,6 +244,13 @@ const App = () => {
             >
               ✕
             </button>
+
+            {/* Modal Image Preview */}
+            {selectedProject.image && (
+              <div className="modal-image-container">
+                <img src={selectedProject.image} alt={selectedProject.title} className="modal-image" />
+              </div>
+            )}
 
             <div className="modal-header">
               <span
