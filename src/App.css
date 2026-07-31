@@ -495,3 +495,8 @@ body {
     max-height: 95vh;
   }
 }
+
+@font-face {
+  font-family: 'RebelSans';
+  src: url('/fonts/RebelSansText-VF.ttf') format('truetype');
+}
