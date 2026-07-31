@@ -7,6 +7,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // Fetch from Airtable
   useEffect(() => {
@@ -174,7 +175,12 @@ const App = () => {
       ) : (
         <div className="projects-grid">
           {filtered.map((project, idx) => (
-            <div key={project.id} className="project-card" style={{ animationDelay: `${idx * 0.05}s` }}>
+            <div
+              key={project.id}
+              className="project-card"
+              style={{ animationDelay: `${idx * 0.05}s` }}
+              onClick={() => setSelectedProject(project)}
+            >
               <div className="card-header">
                 <span
                   className="type-badge"
@@ -200,12 +206,77 @@ const App = () => {
               <p className="category-label">{project.category}</p>
 
               {project.link && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   View Project →
                 </a>
               )}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Modal */}
+      {selectedProject && (
+        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="modal-close"
+              onClick={() => setSelectedProject(null)}
+            >
+              ✕
+            </button>
+
+            <div className="modal-header">
+              <span
+                className="modal-type-badge"
+                style={{ color: typeColors[selectedProject.type] || typeColors.Other }}
+              >
+                {selectedProject.type}
+              </span>
+              <span className="modal-category">{selectedProject.category}</span>
+            </div>
+
+            <h2 className="modal-title">{selectedProject.title}</h2>
+
+            <p className="modal-description">{selectedProject.description}</p>
+
+            {selectedProject.tags && selectedProject.tags.length > 0 && (
+              <div className="modal-tags">
+                <p className="modal-tags-label">Tags:</p>
+                <div className="tags-list">
+                  {selectedProject.tags.map(tag => (
+                    <span key={tag} className="modal-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {selectedProject.link && (
+              <a
+                href={selectedProject.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="modal-link-button"
+              >
+                View Full Project →
+              </a>
+            )}
+
+            <button
+              className="modal-close-button"
+              onClick={() => setSelectedProject(null)}
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>
