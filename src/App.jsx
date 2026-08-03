@@ -60,6 +60,7 @@ const App = () => {
             tags: record.fields.Tags || [],
             link: record.fields.Link || null,
             image: record.fields.Image?.[0]?.url || null,
+            workingFiles: record.fields['Working Files'] || null,
             sortOrder: index,
           }));
 
@@ -159,6 +160,14 @@ const App = () => {
                     return <span key={tag} className="modal-tag" style={{ background: colors.bg, color: colors.text, border: `0.5px solid ${colors.border}` }}>{tag}</span>;
                   })}
                 </div>
+              </div>
+            )}
+            {selectedProject.workingFiles && (
+              <div className="modal-working-files">
+                <p className="modal-working-files-label">Working Files:</p>
+                <a href={selectedProject.workingFiles} target="_blank" rel="noopener noreferrer" className="working-files-link">
+                  Access Files →
+                </a>
               </div>
             )}
             {selectedProject.link && <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="modal-link-button">View Full Project →</a>}
