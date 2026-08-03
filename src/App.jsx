@@ -134,10 +134,7 @@ const App = () => {
                 </div>
               )}
               <p className="category-label">{project.category}</p>
-              <div className="card-buttons">
-                {project.workingFiles && <a href={project.workingFiles} target="_blank" rel="noopener noreferrer" className="card-button working-files-btn" onClick={(e) => e.stopPropagation()}>Files →</a>}
-                {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="card-button project-btn" onClick={(e) => e.stopPropagation()}>View →</a>}
-              </div>
+              {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link" onClick={(e) => e.stopPropagation()}>View Project →</a>}
             </div>
           ))}
         </div>
@@ -164,6 +161,11 @@ const App = () => {
                   })}
                 </div>
               </div>
+            )}
+            {selectedProject.workingFiles && (
+              <a href={selectedProject.workingFiles} target="_blank" rel="noopener noreferrer" className="modal-link-button">
+                Access Files →
+              </a>
             )}
             {selectedProject.link && <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="modal-link-button">View Full Project →</a>}
             <button className="modal-close-button" onClick={() => setSelectedProject(null)}>Close</button>
