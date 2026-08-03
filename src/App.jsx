@@ -60,7 +60,7 @@ const App = () => {
             tags: record.fields.Tags || [],
             link: record.fields.Link || null,
             image: record.fields.Image?.[0]?.url || null,
-            workingFiles: record.fields['Working Files'] || null,
+            workingFiles: record.fields['Working files'] || null,
             sortOrder: index,
           }));
 
@@ -134,7 +134,10 @@ const App = () => {
                 </div>
               )}
               <p className="category-label">{project.category}</p>
-              {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link" onClick={(e) => e.stopPropagation()}>View Project →</a>}
+              <div className="card-buttons">
+                {project.workingFiles && <a href={project.workingFiles} target="_blank" rel="noopener noreferrer" className="card-button working-files-btn" onClick={(e) => e.stopPropagation()}>Files →</a>}
+                {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="card-button project-btn" onClick={(e) => e.stopPropagation()}>View →</a>}
+              </div>
             </div>
           ))}
         </div>
@@ -160,14 +163,6 @@ const App = () => {
                     return <span key={tag} className="modal-tag" style={{ background: colors.bg, color: colors.text, border: `0.5px solid ${colors.border}` }}>{tag}</span>;
                   })}
                 </div>
-              </div>
-            )}
-            {selectedProject.workingFiles && (
-              <div className="modal-working-files">
-                <p className="modal-working-files-label">Working Files:</p>
-                <a href={selectedProject.workingFiles} target="_blank" rel="noopener noreferrer" className="working-files-link">
-                  Access Files →
-                </a>
               </div>
             )}
             {selectedProject.link && <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="modal-link-button">View Full Project →</a>}
