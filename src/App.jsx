@@ -97,7 +97,7 @@ const App = () => {
   return (
     <div className="app">
       <div className="hero">
-        <h1>Project Portfolio</h1>
+        <h1>AV Press Kit Ecosystem</h1>
         <p>A collection of strategic communications, design, and technology projects</p>
       </div>
 
